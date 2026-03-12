@@ -1,0 +1,63 @@
+appId: "com.blablaland.desktop"
+
+# on garde que les fichiers français (gagne ~3-5 Mo)
+electronLanguages:
+  - fr
+
+directories:
+  output: "release"
+
+# on utilise la compression max (LZMA) pour réduire la taille de la version portable
+compression: "maximum"
+
+files:
+  - "index.js"
+  - "package.json"
+  - "assets"
+  - "!**/*.map"
+  - "!**/*.d.ts"
+  - "!**/*.md"
+
+extraResources:
+  - from: "plugins/${os}/${arch}"
+    to: "plugins"
+    filter:
+      - "**/*"
+
+mac:
+  target:
+    - target: "dmg"
+      arch: ["x64", "arm64"]   # Intel + Apple Silicon
+    - target: "zip"
+      arch: ["x64", "arm64"]
+
+
+win:
+  icon: "assets/icon.ico"
+  defaultArch: "x64"
+  target:
+    - target: "nsis"       # installable (wizard + uninstaller)
+      arch: ["x64", "ia32"]
+    - target: "portable"   # portable (.exe standalone)
+      arch: ["x64", "ia32"]
+
+nsis:
+  oneClick: false           # affiche l'assistant d'installation
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+
+linux:
+  icon: "assets/icon.png"   # dossier d'icônes PNG recommandé sur Linux
+  target:
+    - target: "AppImage"
+      arch: ["x64"]
+    - target: "deb"
+      arch: ["x64"]
+    - target: "rpm"
+      arch: ["x64"]
+
+protocols:
+  - name: "blablaland"
+    schemes:
+      - "blablaland-launcher"
