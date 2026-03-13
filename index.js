@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, shell, MenuItem } = require('electron');
+const { app, BrowserWindow, Menu, shell, MenuItem, dialog } = require('electron');
 const path = require('path');
 
 /** URL du site Blablaland */
